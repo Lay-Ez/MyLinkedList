@@ -161,8 +161,8 @@ public class MyLinkedList<T> implements List<T> {
         if (index < 0 || index >= size()) {
             throw new IndexOutOfBoundsException();
         }
-        Node currentNode = this.head;
-        for (int i = 0; i <= index; i++) {
+        Node currentNode = this.head.next;
+        for (int i = 0; i < index; i++) {
             currentNode = currentNode.next;
         }
         return currentNode.data;
@@ -173,7 +173,7 @@ public class MyLinkedList<T> implements List<T> {
         if (index < 0 || index >= size()) {
             throw new IndexOutOfBoundsException();
         }
-        Node currentNode = this.head;
+        Node currentNode = this.head.next;
         for (int i = 0; i < index; i++) {
             currentNode = currentNode.next;
         }
@@ -187,20 +187,25 @@ public class MyLinkedList<T> implements List<T> {
         if (index < 0 || index > size()) {
             throw new IndexOutOfBoundsException();
         }
-        Node previousNode = null;
-        Node currentNode = this.head;
-        for (int i = 0; i < index; i++) {
-            previousNode = currentNode;
-            currentNode = currentNode.next;
-        }
-        Node newNode = new Node(element);
-        if (currentNode == null) {
+        if (index == size()) {
             //Adding to the end of the list
-            currentNode = newNode;
-            previousNode.next = currentNode;
+            add(element);
         } else {
-            newNode.next = currentNode.next;
-            currentNode.next = newNode;
+            Node currentNode = this.head.next;
+            Node previousNode = null;
+            for (int i = 0; i < index; i++) {
+                previousNode = currentNode;
+                currentNode = currentNode.next;
+            }
+            Node newNode = new Node(element);
+            if (previousNode != null) {
+                previousNode.next = newNode;
+            } else {
+                //Adding to the 0th index
+                this.head.next = newNode;
+            }
+            newNode.next = currentNode;
+            size++;
         }
     }
 
