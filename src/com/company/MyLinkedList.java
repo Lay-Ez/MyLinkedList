@@ -236,23 +236,33 @@ public class MyLinkedList<T> implements List<T> {
 
     @Override
     public int indexOf(Object o) {
-        for (int i = 0; i < size(); i++) {
-            if (this.get(i) == o) {
-                return i;
+        Node currentNode = this.head.next;
+        int currentIndex = 0;
+        int foundIndex = -1;
+        while (currentNode != null) {
+            if (currentNode.data == o) {
+                foundIndex = currentIndex;
+                break;
             }
+            currentNode = currentNode.next;
+            currentIndex++;
         }
-        return -1;
+        return foundIndex;
     }
 
     @Override
     public int lastIndexOf(Object o) {
-        int lastIndex = -1;
-        for (int i = 0; i < size(); i++) {
-            if (this.get(i) == o) {
-                lastIndex = i;
+        Node currentNode = this.head.next;
+        int currentIndex = 0;
+        int foundIndex = -1;
+        while (currentNode != null) {
+            if (currentNode.data == o) {
+                foundIndex = currentIndex;
             }
+            currentNode = currentNode.next;
+            currentIndex++;
         }
-        return lastIndex;
+        return foundIndex;
     }
 
     @Override
